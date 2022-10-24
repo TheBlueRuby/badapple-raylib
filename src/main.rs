@@ -1,6 +1,10 @@
 extern crate raylib;
 use raylib::prelude::*;
 
+use rodio::{source::Source, Decoder, OutputStream};
+use std::fs::File;
+use std::io::BufReader;
+
 fn main() {
     let (mut rl, thread) = raylib::init()
         .size(960, 720)
@@ -10,6 +14,11 @@ fn main() {
         .build();
     
     hide_console_window();
+
+    let (_stream, audio_stream_handle) = OutputStream::try_default().unwrap();
+    let audio_file = BufReader::new(File::open("assets/music/bad-apple-audio.mp3").unwrap());
+    let audio_source = Decoder::new(audio_file).unwrap();
+    audio_stream_handle.play_raw(audio_source.convert_samples()).unwrap();
 
     let mut frame = 0;
 

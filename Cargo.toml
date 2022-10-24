@@ -7,3 +7,5 @@ edition = "2021"
 
 [dependencies]
 raylib = "3.7"
+rodio = "0.16.0"
+winapi = {version = "0.3", features = ["wincon", "winuser"]}
